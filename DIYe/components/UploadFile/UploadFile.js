@@ -11,6 +11,7 @@ import {
 import { ImagePicker, Permissions } from "expo";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import { ReactNativeFile } from "apollo-upload-client";
 
 export const UPLOAD_FILE = gql`
   mutation uploadFile($file: Upload!) {
@@ -32,7 +33,7 @@ export default class UploadFile extends React.Component {
     // are actually granted, but I'm skipping that for brevity
   };
   render() {
-    let { image } = this.state;
+    let { file, image } = this.state;
 
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -48,7 +49,7 @@ export default class UploadFile extends React.Component {
             <Button
               title="Send"
               onPress={() => {
-                uploadFile({ variables: { file: this.state.image } });
+                uploadFile({ variables: { file } });
               }}
             />
           )}
@@ -66,7 +67,12 @@ export default class UploadFile extends React.Component {
     console.log(result);
 
     if (!result.cancelled) {
-      this.setState({ image: result.uri });
+      const file = new ReactNativeFile({
+        uri: result.uri,
+        name: "a.jpg",
+        type: "image/jpeg"
+      });
+      this.setState({ file, image: result.uri });
     }
   };
 }
