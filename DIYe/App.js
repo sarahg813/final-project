@@ -8,15 +8,17 @@ import { ApolloProvider } from "react-apollo";
 import { WebSocketLink } from "apollo-link-ws";
 import { split } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
+import { createUploadLink } from "apollo-upload-client";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Login from "./components/Login/Login";
 import UploadFile from "./components/UploadFile/UploadFile";
 
 // Create an http link:
-const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql"
-});
+//const httpLink = new HttpLink({ uri: "http://localhost:4000/graphql" });
+// don't need HttpLink if using createUploadLink
+// https://stackoverflow.com/questions/49507035/how-to-use-apollo-link-http-with-apollo-upload-client
+const httpLink = createUploadLink({ uri: "http://localhost:4000/graphql" });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
