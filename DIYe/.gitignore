@@ -4,3 +4,4 @@ npm-debug.*
 package-lock.json
 ./package-lock.json
 client/node_modules/**/*
+client/.expo
