@@ -1,5 +1,22 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow
+ */
+
+import React, { Component } from "react";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  AsyncStorage
+} from "react-native";
+
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
@@ -8,17 +25,13 @@ import { ApolloProvider } from "react-apollo";
 import { WebSocketLink } from "apollo-link-ws";
 import { split } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
-import { createUploadLink } from "apollo-upload-client";
-import Header from "./components/Header";
-import Body from "./components/Body";
-import SignInScreen from "./components/SignInScreen/SignInScreen";
-import UploadFile from "./components/UploadFile/UploadFile";
+
+import SwitchNavigator from "../SwitchNavigator/SwitchNavigator";
 
 // Create an http link:
-//const httpLink = new HttpLink({ uri: "http://localhost:4000/graphql" });
-// don't need HttpLink if using createUploadLink
-// https://stackoverflow.com/questions/49507035/how-to-use-apollo-link-http-with-apollo-upload-client
-const httpLink = createUploadLink({ uri: "http://localhost:4000/graphql" });
+const httpLink = new HttpLink({
+  uri: "http://localhost:4000/graphql"
+});
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
@@ -71,25 +84,44 @@ const _retrieveData = async key => {
   }
 };
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <View style={styles.container}>
-          <SignInScreen />
-          <UploadFile />
-          <Header />
-          <Body />
-        </View>
+        <SwitchNavigator />
       </ApolloProvider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignSelf: "stretch",
-    backgroundColor: "#fff"
-  }
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     flexDirection: "row",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     backgroundColor: "#F5FCFF"
+//   },
+//   welcome: {
+//     fontSize: 20,
+//     textAlign: "center",
+//     margin: 10
+//   },
+//   instructions: {
+//     textAlign: "center",
+//     color: "#333333",
+//     marginBottom: 5
+//   },
+//   button: {
+//     backgroundColor: "gray",
+//     width: 150,
+//     height: 50,
+//     borderRadius: 10,
+//     alignItems: "center",
+//     justifyContent: "center",
+//     margin: 10
+//   },
+//   buttonText: {
+//     color: "white"
+//   }
+// });

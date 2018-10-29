@@ -26,7 +26,7 @@ export default class SignInScreen extends React.Component {
   //  <Button title="Sign in!" onPress={this._signInAsync} />
 
   _signInAsync = async () => {
-    await AsyncStorage.setItem("userToken", "abc");
+    await AsyncStorage.setItem("token", token);
     this.props.navigation.navigate("App");
   };
 }
