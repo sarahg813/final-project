@@ -1,0 +1,44 @@
+type Subscription {
+  eventAdded: Event!
+}
+type Query {
+  events: [Event!]!
+  eventsWithAuth: [Event!]!
+}
+type Mutation {
+  createEvent(topic: String!, message: String!): Event!
+  singleUpload(file: Upload!): File!
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+  createPost(caption: String): Post!
+}
+
+type Post {
+  _id: ID!
+  user: User
+  caption: String
+}
+
+type Event {
+  _id: ID!
+  topic: String!
+  message: String!
+}
+
+type File {
+  _id: ID!
+  filename: String!
+  mimetype: String!
+  path: String!
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type User {
+  _id: ID!
+  email: String!
+  name: String!
+}
