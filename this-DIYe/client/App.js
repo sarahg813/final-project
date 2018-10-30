@@ -19,9 +19,10 @@ import { WebSocketLink } from "apollo-link-ws";
 import { split } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
 
-import { AppLoading, Asset, Font, Icon } from 'expo';
-import AppNavigator from './navigation/AppNavigator';
+import { AppLoading, Asset, Font, Icon } from "expo";
+import AppNavigator from "./navigation/AppNavigator";
 
+import { getToken } from "./auth";
 
 // import SwitchNavigator from "../SwitchNavigator/SwitchNavigator";
 
@@ -38,10 +39,10 @@ const wsLink = new WebSocketLink({
   }
 });
 
-// Authentication link:
-const authLink = setContext((_, { headers }) => {
+/// Authentication link:
+const authLink = setContext(async (_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = _retrieveData("token");
+  const token = await getToken();
   // return the headers to the context so httpLink can read them
   return {
     headers: {
@@ -85,11 +86,11 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <ApolloProvider client={client}>
+        {Platform.OS === "ios" && <StatusBar barStyle="default" />}
+        <ApolloProvider client={client}>
           <AppNavigator />
-          </ApolloProvider>
-       </View>
+        </ApolloProvider>
+      </View>
       // {/* <ApolloProvider client={client}> */}
       //   {/* <SwitchNavigator /> */}
       // </ApolloProvider>
@@ -156,6 +157,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
+    backgroundColor: "#fff"
+  }
 });

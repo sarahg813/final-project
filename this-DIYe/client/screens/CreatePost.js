@@ -7,15 +7,20 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Button,
   View
 } from "react-native";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
 const CREATE_POST = gql`
-  mutation CreatePost($caption: String!) {
-    createPost(caption: $caption) {
+  mutation CreatePost($caption: String!, $userID: Int!) {
+    createPost(caption: $caption, userId: $userId) {
       _id
+      author {
+        _id
+        name
+      }
       caption
     }
   }
@@ -34,8 +39,8 @@ export default class CreatePost extends React.Component {
   state = {
     caption: ""
   };
+
   render() {
-    const { caption } = this.state;
     return (
       <Mutation mutation={CREATE_POST}>
         {(mutateFunc, { data }) => {
@@ -46,6 +51,15 @@ export default class CreatePost extends React.Component {
                 style={{ height: 40, backgroundColor: "white" }}
                 value={caption}
                 onChangeText={caption => this.setState({ caption })}
+              />
+              <Button
+                onPress={e => {
+                  e.preventDefault();
+                  mutateFunc({
+                    variables: { caption, userId }
+                  });
+                }}
+                title="Send Message"
               />
             </View>
           );

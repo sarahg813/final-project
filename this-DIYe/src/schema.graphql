@@ -10,13 +10,7 @@ type Mutation {
   singleUpload(file: Upload!): File!
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
-  createPost(caption: String): Post!
-}
-
-type Post {
-  _id: ID!
-  user: User
-  caption: String
+  createPost(caption: String, userId: Int!): Post!
 }
 
 type Event {
@@ -41,4 +35,11 @@ type User {
   _id: ID!
   email: String!
   name: String!
+  posts: [Post]
+}
+
+type Post {
+  _id: ID!
+  author: User!
+  caption: String
 }
