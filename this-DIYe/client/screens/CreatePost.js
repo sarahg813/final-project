@@ -41,6 +41,7 @@ export default class CreatePost extends React.Component {
   };
 
   render() {
+    const caption = this.state;
     return (
       <Mutation mutation={CREATE_POST}>
         {(mutateFunc, { data }) => {
@@ -56,7 +57,7 @@ export default class CreatePost extends React.Component {
                 onPress={e => {
                   e.preventDefault();
                   mutateFunc({
-                    variables: { caption, userId }
+                    variables: { caption }
                   });
                 }}
                 title="Send Message"
