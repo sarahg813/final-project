@@ -1,6 +1,7 @@
 const fs = require("fs");
 const mkdirp = require("mkdirp");
 const shortid = require("shortid");
+const mongojs = require("mongojs");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { PubSub } = require("apollo-server-express");
@@ -98,7 +99,27 @@ const resolvers = {
       };
     },
     async createPost(root, args, context) {
-      return await Post.create(context.db, args);
+      const userId = getUserId(context); //to get token, function getUserId from utils.js
+
+      console.log(root);
+      console.log(userId);
+      const user = await User.user(context.db, {
+        _id: mongojs.ObjectId(userId)
+      });
+      console.log(user);
+      const newPost = await Post.create(context.db, {
+        ...args,
+        user_id: userId
+      });
+      return {
+        _id: newPost._id,
+        caption: newPost.caption,
+        author: {
+          _id: user._id,
+          name: user.name,
+          email: user.email
+        }
+      };
     }
   },
   AuthPayload: {

@@ -14,14 +14,13 @@ import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
 const CREATE_POST = gql`
-  mutation CreatePost($caption: String!, $userID: Int!) {
-    createPost(caption: $caption, userId: $userId) {
+  mutation CreatePost($caption: String!) {
+    createPost(caption: $caption) {
       _id
+      caption
       author {
-        _id
         name
       }
-      caption
     }
   }
 `;
@@ -41,7 +40,7 @@ export default class CreatePost extends React.Component {
   };
 
   render() {
-    const caption = this.state;
+    const { caption } = this.state;
     return (
       <Mutation mutation={CREATE_POST}>
         {(mutateFunc, { data }) => {
@@ -60,7 +59,7 @@ export default class CreatePost extends React.Component {
                     variables: { caption }
                   });
                 }}
-                title="Send Message"
+                title="Send Post"
               />
             </View>
           );

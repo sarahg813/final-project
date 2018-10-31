@@ -8,11 +8,15 @@
   "dependencies": {
     "apollo-client": "^2.4.4",
     "apollo-server-express": "^2.1.0",
+    "bcrypt": "^3.0.2",
     "bcryptjs": "^2.4.3",
     "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
     "graphql": "^14.0.2",
+    "graphql-tools": "^4.0.3",
     "jsonwebtoken": "^8.3.0",
     "mkdirp": "^0.5.1",
+    "mongodb": "^3.1.8",
     "mongojs": "^2.6.0",
     "react-native-vector-icons": "^6.0.2",
     "shortid": "^2.2.13"
