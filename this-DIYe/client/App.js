@@ -24,7 +24,7 @@ import AppNavigator from "./navigation/AppNavigator";
 
 import { getToken } from "./auth";
 
-// import SwitchNavigator from "../SwitchNavigator/SwitchNavigator";
+// import SwitchNavigator from `Ω"../SwitchNavigator/SwitchNavigator";
 
 // Create an http link:
 const httpLink = new HttpLink({

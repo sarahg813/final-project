@@ -11,7 +11,7 @@ import ShopsScreen from "../screens/ShopScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import UploadScreen from "../screens/UploadScreen";
 import DetailScreen from "../screens/Details";
-import CreatePost from "../screens/CreatePost";
+import CreatePost from "../screens/CreatePostScreen";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,

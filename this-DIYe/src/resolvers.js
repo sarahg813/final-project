@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const { PubSub } = require("apollo-server-express");
 const Event = require("./models/event");
 const Post = require("./models/post");
+const PostImg = require("./models/postImg");
 const Images = require("./models/images");
 const User = require("./models/user");
 const { getUserId } = require("./utils");
@@ -119,6 +120,15 @@ const resolvers = {
           name: user.name,
           email: user.email
         }
+      };
+    },
+    async createPostImg(root, args, context) {
+      const newPostImg = await PostImg.create(context.db, {
+        ...args
+      });
+      return {
+        _id: newPostImg._id,
+        imgUrl: newPostImg.imgUrl
       };
     }
   },

@@ -1,20 +1,10 @@
 import React from "react";
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Button,
-  View
-} from "react-native";
+import { Text, TextInput, Button, View } from "react-native";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
 const CREATE_POST = gql`
-  mutation CreatePost($caption: String!) {
+  mutation createPost($caption: String!) {
     createPost(caption: $caption) {
       _id
       caption

@@ -87,28 +87,21 @@ class Login extends Component {
           </Text>
         </TouchableOpacity>
 
-        <View><Text>{this.state.error}</Text></View>
+        <View>
+          <Text>{this.state.error}</Text>
+        </View>
       </View>
     );
   }
 
   _confirm = async data => {
     const { token } = this.state.login ? data.login : data.signup;
-    this._storeData(token);
-    this.props.onSucceed();
+    this.props.onSucceed(token);
   };
 
   _showError = error => {
-    console.log("[Inside _showError]")
-    this.setState({error: error.toString()})
-  }
-
-  _storeData = async token => {
-    try {
-      await AsyncStorage.setItem("userToken", "token" );
-    } catch (error) {
-      // Error saving data
-    }
+    console.log("[Inside _showError]");
+    this.setState({ error: error.toString() });
   };
 }
 

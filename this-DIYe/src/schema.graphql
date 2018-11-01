@@ -11,6 +11,7 @@ type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
   createPost(caption: String!): Post!
+  createPostImg(imgUrl: String!): PostImg!
 }
 
 type Event {
@@ -42,4 +43,10 @@ type Post {
   _id: ID!
   author: User!
   caption: String
+  img: [PostImg]
+}
+
+type PostImg {
+  _id: ID!
+  imgUrl: String!
 }

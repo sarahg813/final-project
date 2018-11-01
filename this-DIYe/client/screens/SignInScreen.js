@@ -7,7 +7,7 @@ import {
   StyleSheet,
   View
 } from "react-native";
-
+import { saveToken } from "../auth";
 import Login from "./Login";
 
 export default class SignInScreen extends React.Component {
@@ -19,14 +19,14 @@ export default class SignInScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Login onSucceed={this._signInAsync}/>
+        <Login onSucceed={this._signInAsync} />
       </View>
     );
   }
   //  <Button title="Sign in!" onPress={this._signInAsync} />
 
-  _signInAsync = async () => {
-    await AsyncStorage.setItem("userToken", "token");
+  _signInAsync = async token => {
+    await saveToken(token);
     this.props.navigation.navigate("Main");
   };
 }

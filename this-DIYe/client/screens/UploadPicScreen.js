@@ -2,6 +2,18 @@ import React, { Component } from "react";
 import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Constants, ImagePicker, Permissions } from "expo";
 
+import gql from "graphql-tag";
+import { Mutation } from "react-apollo";
+
+const CREATE_POSTIMG = gql`
+  mutation createPostImg($imgUrl: String!) {
+    CreatePostImg(imgUrl: $imgUrl) {
+      _id
+      imgUrl
+    }
+  }
+`;
+
 export default class App extends Component {
   state = {
     image: null
@@ -53,35 +65,44 @@ export default class App extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => this.pickImage()}
-          style={{ width: 200, alignSelf: "center" }}
-        >
-          <View style={{ backgroundColor: "transparent" }}>
-            {this.state.image ? (
-              <Image
-                source={{ uri: this.state.image }}
-                style={{
-                  width: 200,
-                  height: 200,
-                  borderRadius: 100,
-                  alignSelf: "center"
+      <Mutation mutation={CREATE_POSTIMG}>
+        {(mutateFunc, { data }) => {
+          return (
+            <View style={styles.container}>
+              <TouchableOpacity
+                onPress={() => {
+                  const url = this.pickImage();
+                  mutateFunc({ variable: { url: url } });
                 }}
-              />
-            ) : (
-              <View
-                style={{
-                  backgroundColor: "grey",
-                  width: 200,
-                  height: 200,
-                  borderRadius: 100
-                }}
-              />
-            )}
-          </View>
-        </TouchableOpacity>
-      </View>
+                style={{ width: 200, alignSelf: "center" }}
+              >
+                <View style={{ backgroundColor: "transparent" }}>
+                  {this.state.image ? (
+                    <Image
+                      source={{ uri: this.state.image }}
+                      style={{
+                        width: 200,
+                        height: 200,
+                        borderRadius: 100,
+                        alignSelf: "center"
+                      }}
+                    />
+                  ) : (
+                    <View
+                      style={{
+                        backgroundColor: "grey",
+                        width: 200,
+                        height: 200,
+                        borderRadius: 100
+                      }}
+                    />
+                  )}
+                </View>
+              </TouchableOpacity>
+            </View>
+          );
+        }}
+      </Mutation>
     );
   }
 }
