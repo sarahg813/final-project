@@ -9,6 +9,7 @@ import {
   Image
 } from "react-native";
 import { Constants, ImagePicker, Permissions } from "expo";
+import { createStackNavigator } from "react-navigation";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
@@ -128,7 +129,7 @@ export default class CreatePost extends React.Component {
                     e.preventDefault();
                     mutateFunc({
                       variables: { caption, imgUrl }
-                    });
+                    }).then(this.props.navigation.navigate("Home"));
                   }}
                   title="Send Post"
                 />

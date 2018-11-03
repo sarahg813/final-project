@@ -44,7 +44,7 @@ export default class HomeScreen extends React.Component {
               >
                 {data.posts.map(post => {
                   return (
-                    <View key={post._id}>
+                    <View key={post._id} style={styles.postContainer}>
                       <Text>{post.author.name}</Text>
                       <Image
                         source={{
@@ -75,6 +75,9 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
     backgroundColor: "#fff"
+  },
+  postContainer: {
+    padding: 10
   },
   developmentModeText: {
     marginBottom: 20,
