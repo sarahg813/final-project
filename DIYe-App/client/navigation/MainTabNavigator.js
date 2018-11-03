@@ -9,7 +9,7 @@ import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import ShopsScreen from "../screens/ShopScreen";
 import SettingsScreen from "../screens/SettingsScreen";
-import UploadScreen from "../screens/UploadScreen";
+import UploadScreen from "../screens/UploadPicScreen";
 import DetailScreen from "../screens/Details";
 import CreatePost from "../screens/CreatePostScreen";
 

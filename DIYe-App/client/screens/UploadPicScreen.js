@@ -6,15 +6,15 @@ import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
 const CREATE_POSTIMG = gql`
-  mutation createPostImg($imgUrl: String!) {
-    CreatePostImg(imgUrl: $imgUrl) {
+  mutation CreatePostImg($imgUrl: String!) {
+    createPostImg(imgUrl: $imgUrl) {
       _id
       imgUrl
     }
   }
 `;
 
-export default class App extends Component {
+export default class UploadScreen extends Component {
   state = {
     image: null
   };
@@ -26,7 +26,7 @@ export default class App extends Component {
     // are actually granted, but I'm skipping that for brevity
   };
 
-  pickImage = async () => {
+  pickImage = async cb => {
     await this.askPermissionsAsync();
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
@@ -57,7 +57,7 @@ export default class App extends Component {
         .then(async r => {
           let data = await r.json();
           console.log(data.secure_url);
-          return data.secure_url;
+          cb({ variables: { imgUrl: data.secure_url } });
         })
         .catch(err => console.log(err));
     }
@@ -71,8 +71,9 @@ export default class App extends Component {
             <View style={styles.container}>
               <TouchableOpacity
                 onPress={() => {
-                  const url = this.pickImage();
-                  mutateFunc({ variable: { url: url } });
+                  const url = this.pickImage(mutateFunc);
+                  //mutateFunc({ variables: { imgUrl: "xxxx" } });
+                  //console.log("end of mutatefunc");
                 }}
                 style={{ width: 200, alignSelf: "center" }}
               >

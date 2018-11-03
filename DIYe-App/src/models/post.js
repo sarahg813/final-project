@@ -9,9 +9,9 @@ function create(db, args) {
   });
 }
 
-function user(db, args) {
+function read(db, args) {
   return new Promise(function(resolve, reject) {
-    db.post.findOne(args, function(error, value) {
+    db.post.find(args, function(error, value) {
       if (error) {
         return reject(error);
       }
@@ -22,5 +22,5 @@ function user(db, args) {
 
 module.exports = {
   create,
-  user
+  read
 };

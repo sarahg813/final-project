@@ -9,55 +9,61 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator } from "react-navigation";
 import { WebBrowser } from "expo";
 
 import { MonoText } from "../components/StyledText";
 
+import gql from "graphql-tag";
+import { Mutation } from "react-apollo";
 
-
+const EVENTS_QUERY = gql`
+  query {
+    events {
+      _id
+      topic
+      message
+    }
+  }
+`;
 
 export default class HomeScreen extends React.Component {
-
   constructor(props) {
     super(props);
-    this.state = { text: 'Search' };
+    this.state = { text: "Search" };
   }
   static navigationOptions = {
     header: null
   };
 
   render() {
-
-  
-
     return (
       <View style={styles.container}>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-          
-            
           <View style={styles.helpContainer}>
             <TouchableOpacity
-              onPress={()=> this.props.navigation.navigate('Details', { name: 'Jane' })}
-              
+              onPress={() =>
+                this.props.navigation.navigate("Details", { name: "Jane" })
+              }
             >
-              <Image source={{uri: 'https://res.cloudinary.com/dv9bdruss/image/upload/v1540191556/es1bzilmgz03nus3s5ju.jpg'}} style={{width: 350, height: 350}}/>
+              <Image
+                source={{
+                  uri:
+                    "https://res.cloudinary.com/dv9bdruss/image/upload/v1540191556/es1bzilmgz03nus3s5ju.jpg"
+                }}
+                style={{ width: 350, height: 350 }}
+              />
             </TouchableOpacity>
             <Text>username</Text>
             <Text>title</Text>
           </View>
         </ScrollView>
-
-      
       </View>
     );
   }
-
-
-
 }
 
 const styles = StyleSheet.create({
@@ -81,8 +87,8 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   search: {
-    height: 40, 
-    borderColor: 'black', 
+    height: 40,
+    borderColor: "black",
     borderWidth: 1
   },
   welcomeImage: {
