@@ -9,7 +9,6 @@ import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import ShopsScreen from "../screens/ShopScreen";
 import SettingsScreen from "../screens/SettingsScreen";
-import UploadScreen from "../screens/UploadPicScreen";
 import DetailScreen from "../screens/Details";
 import CreatePost from "../screens/CreatePostScreen";
 
@@ -68,26 +67,9 @@ SettingsStack.navigationOptions = {
   )
 };
 
-const UploadStack = createStackNavigator({
-  Upload: UploadScreen
-});
-
-UploadStack.navigationOptions = {
-  tabBarLabel: "Upload",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === "ios"
-          ? `ios-options${focused ? "" : "-outline"}`
-          : "md-options"
-      }
-    />
-  )
-};
-
 const CreatePostStack = createStackNavigator({
-  CreatePost: CreatePost
+  CreatePost: CreatePost,
+  Home: HomeScreen
 });
 
 CreatePostStack.navigationOptions = {
@@ -107,7 +89,6 @@ CreatePostStack.navigationOptions = {
 export default createBottomTabNavigator({
   HomeStack,
   ShopStack,
-  SettingsStack,
-  UploadStack,
-  CreatePostStack
+  CreatePostStack,
+  SettingsStack
 });

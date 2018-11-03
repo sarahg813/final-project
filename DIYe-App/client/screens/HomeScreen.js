@@ -5,69 +5,74 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View
 } from "react-native";
+import Header from "../components/Header";
 import { createStackNavigator } from "react-navigation";
 import { WebBrowser } from "expo";
-
 import { MonoText } from "../components/StyledText";
-
 import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
+import { Query } from "react-apollo";
 
-const EVENTS_QUERY = gql`
+const POSTS_QUERY = gql`
   query {
-    events {
+    posts {
       _id
-      topic
-      message
+      caption
+      imgUrl
+      author {
+        name
+      }
     }
   }
 `;
 
 export default class HomeScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { text: "Search" };
-  }
-  static navigationOptions = {
-    header: null
-  };
-
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
-        >
-          <View style={styles.helpContainer}>
-            <TouchableOpacity
-              onPress={() =>
-                this.props.navigation.navigate("Details", { name: "Jane" })
-              }
-            >
-              <Image
-                source={{
-                  uri:
-                    "https://res.cloudinary.com/dv9bdruss/image/upload/v1540191556/es1bzilmgz03nus3s5ju.jpg"
-                }}
-                style={{ width: 350, height: 350 }}
-              />
-            </TouchableOpacity>
-            <Text>username</Text>
-            <Text>title</Text>
-          </View>
-        </ScrollView>
-      </View>
+      <Query query={POSTS_QUERY}>
+        {({ loading, data }) => {
+          if (loading) return "Loading...";
+          console.log(data.posts[0]);
+          return (
+            <View style={styles.container}>
+              <Header />
+              <ScrollView
+                style={styles.scrollContainer}
+                contentContainerStyle={styles.contentContainer}
+              >
+                {data.posts.map(post => {
+                  return (
+                    <View key={post._id}>
+                      <Text>{post.author.name}</Text>
+                      <Image
+                        source={{
+                          uri: post.imgUrl
+                        }}
+                        style={{ width: 350, height: 350 }}
+                      />
+                      <Text>{post.caption}</Text>
+                    </View>
+                  );
+                })}
+              </ScrollView>
+            </View>
+          );
+        }}
+      </Query>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    alignItems: "stretch",
+    flexDirection: "column",
+    justifyContent: "center"
+  },
+  scrollContainer: {
     flex: 1,
     backgroundColor: "#fff"
   },
