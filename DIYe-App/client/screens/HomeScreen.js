@@ -28,6 +28,9 @@ const POSTS_QUERY = gql`
   }
 `;
 
+const userImageUri =
+  "https://powerpoint.crystalgraphics.com/template/cbxgbbffz_largest.jpg";
+
 export default class HomeScreen extends React.Component {
   render() {
     return (
@@ -45,14 +48,22 @@ export default class HomeScreen extends React.Component {
                 {data.posts.map(post => {
                   return (
                     <View key={post._id} style={styles.postContainer}>
-                      <Text>{post.author.name}</Text>
+                      <View style={styles.userBar}>
+                        <Image
+                          style={styles.userImage}
+                          source={{ uri: userImageUri }}
+                        />
+                        <Text style={{ fontWeight: "bold" }}>
+                          {post.author.name}
+                        </Text>
+                      </View>
                       <Image
                         source={{
                           uri: post.imgUrl
                         }}
-                        style={{ width: 350, height: 350 }}
+                        style={{ width: 405, height: 350 }}
                       />
-                      <Text>{post.caption}</Text>
+                      <Text style={{ paddingTop: 5 }}>{post.caption}</Text>
                     </View>
                   );
                 })}
@@ -77,94 +88,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   postContainer: {
-    padding: 10
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: "rgba(0,0,0,0.4)",
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: "center"
+    padding: 5
   },
   contentContainer: {
-    paddingTop: 30
+    justifyContent: "center"
   },
-  welcomeContainer: {
-    alignItems: "center",
-    marginTop: 10,
-    marginBottom: 20
-  },
-  search: {
-    height: 40,
-    borderColor: "black",
-    borderWidth: 1
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: "contain",
-    marginTop: 3,
-    marginLeft: -10
-  },
-  getStartedContainer: {
-    marginTop: 10,
-    alignItems: "center",
-    marginHorizontal: 50
-  },
-  homeScreenFilename: {
-    marginVertical: 7
-  },
-  codeHighlightText: {
-    color: "rgba(96,100,109, 0.8)"
-  },
-  codeHighlightContainer: {
-    backgroundColor: "rgba(0,0,0,0.05)",
-    borderRadius: 3,
-    paddingHorizontal: 4
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    lineHeight: 24,
-    textAlign: "center"
-  },
-  tabBarInfoContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: "black",
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3
-      },
-      android: {
-        elevation: 20
-      }
-    }),
-    alignItems: "center",
-    backgroundColor: "#fbfbfb",
-    paddingVertical: 20
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    textAlign: "center"
-  },
-  navigationFilename: {
-    marginTop: 5
-  },
-  helpContainer: {
-    marginTop: 15,
+  userBar: {
+    height: 50,
+    flexDirection: "row",
     alignItems: "center"
   },
-  helpLink: {
-    paddingVertical: 15
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: "#2e78b7"
+  userImage: {
+    height: 35,
+    width: 35,
+    borderRadius: 20,
+    marginRight: 5
   }
 });

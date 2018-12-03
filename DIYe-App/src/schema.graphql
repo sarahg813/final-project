@@ -1,6 +1,7 @@
 
 type Query {
   posts: [Post!]!
+  currentUser: User!
 }
 
 type Mutation {

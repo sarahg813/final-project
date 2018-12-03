@@ -131,7 +131,7 @@ export default class CreatePost extends React.Component {
                       variables: { caption, imgUrl }
                     }).then(this.props.navigation.navigate("Home"));
                   }}
-                  title="Send Post"
+                  title="Share Post"
                 />
               </View>
             </View>

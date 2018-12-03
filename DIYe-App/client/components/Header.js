@@ -16,11 +16,13 @@ const styles = StyleSheet.create({
     width: 100 + "%",
     height: 60,
     paddingBottom: 5,
-    backgroundColor: "#FFFBCD"
+    backgroundColor: "#FFFBCD",
+    display: "flex",
+    justifyContent: "center"
   },
   header_text: {
-    fontWeight: "bold",
-    fontSize: 24,
+    fontFamily: "Heiti TC",
+    fontSize: 30,
     textAlign: "center"
   }
 });

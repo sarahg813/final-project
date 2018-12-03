@@ -7,10 +7,10 @@ import {
 
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
-import ShopsScreen from "../screens/ShopScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import DetailScreen from "../screens/Details";
 import CreatePost from "../screens/CreatePostScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -24,26 +24,8 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
-          : "md-information-circle"
-      }
-    />
-  )
-};
-
-const ShopStack = createStackNavigator({
-  Shop: ShopsScreen
-});
-
-ShopStack.navigationOptions = {
-  tabBarLabel: "Shop",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === "ios"
-          ? `ios-link${focused ? "" : "-outline"}`
-          : "md-link"
+          ? `ios-home${focused ? "" : "-outline"}`
+          : "md-home"
       }
     />
   )
@@ -60,8 +42,8 @@ SettingsStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === "ios"
-          ? `ios-options${focused ? "" : "-outline"}`
-          : "md-options"
+          ? `ios-settings${focused ? "" : "-outline"}`
+          : "md-settings"
       }
     />
   )
@@ -79,8 +61,26 @@ CreatePostStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === "ios"
-          ? `ios-options${focused ? "" : "-outline"}`
-          : "md-options"
+          ? `ios-add-circle${focused ? "" : "-outline"}`
+          : "md-add-circle"
+      }
+    />
+  )
+};
+
+const ProfileStack = createStackNavigator({
+  Profile: ProfileScreen
+});
+
+ProfileStack.navigationOptions = {
+  tabBarLabel: "Profile",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === "ios"
+          ? `ios-contact${focused ? "" : "-outline"}`
+          : "md-contact"
       }
     />
   )
@@ -88,7 +88,7 @@ CreatePostStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  ShopStack,
   CreatePostStack,
+  ProfileStack,
   SettingsStack
 });

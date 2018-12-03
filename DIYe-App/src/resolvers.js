@@ -30,6 +30,17 @@ const resolvers = {
         };
       });
       return result;
+    },
+    async currentUser(root, args, context) {
+      const userId = getUserId(context);
+      const user = await User.user(context.db, {
+        _id: mongojs.ObjectId(userId)
+      });
+
+      return {
+        name: user.name,
+        email: user.email
+      };
     }
   },
   Mutation: {
